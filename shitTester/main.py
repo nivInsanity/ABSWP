@@ -1,13 +1,24 @@
-import logging
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s -  %(levelname)s  -  %(message)s')
-logging.debug('Początek programu')
-def factorial(n):
-    logging.debug('Początek wywołania funkcji factorial(%s%%)'  % (n))
-    total = 1
-    for i in range(1, n + 1):
-        total *= i
-        logging.debug('i wynosi ' + str(i) + ', wartość całkowita wynosi ' + str(total))
-    logging.debug('Koniec wywołania funkcji factorial(%s%%)'  % (n))
-    return total
-print(factorial(5))
-logging.debug('Koniec programu')
+import unittest
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+class PythonOrgSearch(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+
+    def test_search_in_python_org(self):
+        driver = self.driver
+        driver.get("http://www.python.org")
+        self.assertIn("Python", driver.title)
+        elem = driver.find_element_by_name("q")
+        elem.send_keys("pycon")
+        elem.send_keys(Keys.RETURN)
+        assert "No results found." not in driver.page_source
+
+
+    def tearDown(self):
+        self.driver.close()
+
+if __name__ == "__main__":
+    unittest.main()
