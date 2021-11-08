@@ -6,7 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
 
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 
 driver.get('https://account.protonmail.com/login')
 
